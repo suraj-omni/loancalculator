@@ -1,0 +1,325 @@
+<div class="text-center my-3"><h2>Loan Calculator</h2></div>
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <h5 class="card-title">Personal Information</h5>
+    <form>
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="position-relative form-group">
+            <label for="exampleCity">Name</label>
+            <input
+              name="customername"
+              ngModel
+              #customername="ngModel"
+              id="customername"
+              type="text"
+              required
+              placeholder="Please enter your name"
+              class="form-control"
+            />
+            <div
+              class="alert alert-danger"
+              *ngIf="customername.touched && !customername.valid"
+            >
+              Name is required!!
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="position-relative form-group">
+            <label for="exampleCity">Age</label
+            ><input
+              name="age"
+              ngModel
+              #age="ngModel"
+              required
+              id="age"
+              type="number"
+              placeholder="Please enter your age"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="age.touched && !age.valid">
+              Age is required!!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6">
+          <div class="position-relative form-group">
+            <label for="examplePassword11">Phone</label
+            ><input
+              ngModel
+              #phonenumber="ngModel"
+              name="phonenumber"
+              id="phonenumber"
+              required
+              placeholder="Please enter your phone number"
+              type="text"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="phonenumber.touched">
+              <div *ngIf="!phonenumber.valid">Phone Number is required !!</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="position-relative form-group">
+            <label for="email">Email</label
+            ><input
+              required
+              ngModel
+              #email="ngModel"
+              name="email"
+              id="email"
+              placeholder="Please enter your e-mail"
+              type="email"
+              class="form-control"
+            />
+            <div class="alert alert-danger" *ngIf="email.touched">
+              <div *ngIf="email.errors.required">Email is required !!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="mt-2 btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div class="main-card mb-3 card">
+  <div class="card-body">
+    <h5 class="card-title">Calculator</h5>
+    <!-- loan amount section -->
+    <div class="row">
+      <!-- loan amount label col-md-6 -->
+      <div class="col-md-6">
+        <label>Loan Amount</label>
+      </div>
+      <!-- loan amount label col-md-6 -->
+      <!-- loan amount text col-md-6 -->
+      <div class="col-md-6">
+        <div class="d-flex ml-auto mr-0 align-items-center">
+          <label>$</label>
+          <input
+            name="loanamount"
+            id="loanamount"
+            type="number"
+            [(ngModel)]="loanamount"
+            (input)="onLoanAmountChange($event.target.value)"
+            class="form-control loanamountinput "
+          />
+          <span class="arrowssize my-auto" (click)="loanamountincrease()">
+            <i class="vsm-icon pe-7s-angle-up"></i>
+          </span>
+          <span class="arrowssize my-auto" (click)="loanamountdicrease()">
+            <i class="vsm-icon pe-7s-angle-down"></i>
+          </span>
+        </div>
+      </div>
+      <!-- loan amount text col-md-6 -->
+      <!-- loan amount slider -->
+      <div class="col-12">
+        <div class="row rowheight2 my-4">
+          <div class="col-lg-12 slidercol">
+            <div class="slidecontainer">
+              <input
+                type="range"
+                min="1000"
+                max="500000"
+                [(ngModel)]="loanamount"
+                (mouseup)="loanamountSliderslide($event.target.value)"
+                class="slider"
+                id="loanamount"
+              />
+            </div>
+            <div class="table">
+              <ul
+                id="horizontal-list"
+                class="horizontal-list"
+                role="presentation"
+                tabindex="-1"
+                aria-hidden="true"
+                style="z-index: -1;"
+              >
+                <li
+                  class="my-auto firstli"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="0"
+                >
+                  0
+                </li>
+                <li
+                  class="my-auto li1"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="100K"
+                >
+                  100K
+                </li>
+                <li
+                  class="my-auto li2"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="200K"
+                >
+                  200K
+                </li>
+                <li
+                  class="my-auto li3"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="300K"
+                >
+                  300K
+                </li>
+                <li
+                  class="my-auto li4"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="400k"
+                >
+                  400K
+                </li>
+                <li
+                  class="ml-0 mr-auto li5"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="500k"
+                >
+                  500K
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- loan amount slider -->
+    </div>
+
+    <!-- interest rate section -->
+    <div class="row">
+      <!-- interest rate label col-md-6 -->
+      <div class="col-md-6"><label>Interest Rate</label></div>
+      <!-- interest rate label col-md-6 -->
+      <!-- interest rate amount text col-md-6 -->
+      <div class="col-md-6">
+        <div class="d-flex ml-auto mr-0 align-items-center">
+          <input
+            name="percentage"
+            id="loanamount"
+            type="number"
+            [(ngModel)]="percentage"
+            (input)="onPercentageChange($event.target.value)"
+            class="form-control loanamountinput"
+          />
+          <label>%</label>
+          <span class="arrowssize my-auto" (click)="percentageincrease()">
+            <i class="vsm-icon pe-7s-angle-up"></i>
+          </span>
+          <span class="arrowssize my-auto" (click)="percentagedicrease()">
+            <i class="vsm-icon pe-7s-angle-down"></i>
+          </span>
+        </div>
+      </div>
+      <!-- interest rate amount text col-md-6 -->
+      <!-- interest rate slider -->
+      <div class="col-12">
+        <div class="row rowheight2 my-4">
+          <div class="col-lg-12 slidercol">
+            <div class="slidecontainer">
+              <input
+                type="range"
+                min="0"
+                max="20"
+                [(ngModel)]="percentage"
+                class="slider"
+                id="percentageslider"
+                (mouseup)="percentageSliderslide($event.target.value)"
+              />
+            </div>
+            <div class="table">
+              <ul
+                id="horizontal-list"
+                class="horizontal-list"
+                role="presentation"
+                tabindex="-1"
+                aria-hidden="true"
+                style="z-index: -1;"
+              >
+                <li
+                  class="my-auto firstli"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="0"
+                >
+                  0
+                </li>
+                <li
+                  class="my-auto li1"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="5"
+                >
+                  5
+                </li>
+                <li
+                  class="my-auto li2"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="10"
+                >
+                  10
+                </li>
+                <li
+                  class="my-auto li3"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="15"
+                >
+                  15
+                </li>
+                <li
+                  class="my-auto li4"
+                  role="presentation"
+                  tabindex="-1"
+                  aria-hidden="true"
+                  title="20"
+                >
+                  20
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- interest rate slider -->
+    </div>
+
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas
+            baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
